@@ -1,0 +1,12 @@
+name: example_app
+title: example_app
+username:
+account: jorgeluis8ar
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3303294
+bundleId: 3906873
+url: https://jorgeluis8ar.shinyapps.io/example_app/
+when: 1606347623.95128
+asMultiple: FALSE
+asStatic: FALSE

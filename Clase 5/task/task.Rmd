@@ -1,0 +1,42 @@
+---
+pagetitle: "Introduccion de la clase"
+output: html_document
+---
+<!-- Estilo del HTML -->
+<style type="text/css">
+h1 {
+  font-size: 32px;
+  color: red
+}
+h1.title {
+  font-size: 32px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 26px;
+}
+h4 {
+  font-size: 24px;
+}
+p {
+ font-size: 18px;
+ color: black
+}
+li {
+ font-size: 18px;
+ color: black
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+<!-- Estilo del HTML -->
+
+<!-- Configuracion de la consola de R -->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T , eval = T , warning = T)
+```
+
+# Aún no hay task

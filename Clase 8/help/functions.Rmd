@@ -1,0 +1,77 @@
+---
+html_document: default
+pagetitle: Help-loop-apply
+---
+<!-- Estilo del HTML -->
+<style type="text/css">
+h1 {font-size: 32px;color: #00008B}
+h1.title {font-size: 32px;}
+h2 {font-size: 30px;color: #4169E1}
+h3 {font-size: 26px;color: #4169E1}
+h4 {font-size: 24px;}
+ p {font-size: 22px; color: black}
+li { font-size: 18px;color: black}
+.table th:not([align]) {text-align: left;}
+</style>
+
+<!-- Configuración de la consola de R -->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T , eval = T , warning = T)
+```
+
+<!-- Bases de datos a usar como ejemplo -->
+```{r, include=FALSE}
+library('tidyverse')
+library('kableExtra')
+```
+
+
+# 1. Función “function”.
+
+Una función es la generalización de un código, de tal forma que podemos iterar este código sobre un conjunto de objetos para obtener un resultado.
+
+## 1.1. Partes de una función
+
+El cuerpo de la función 'function' se compone de 3 partes:
+
+* Argumentos o insumos de la función
+* Cuerpo de la función
+* Producto o salida de la función
+
+```
+nombre_funcion <- function(argumentos){
+                  * Que queremos que haga la función
+                  * Resultado de la función
+}
+```
+
+## 1.2. Veamos un ejemplo
+```{r}
+### función que limpia los caracteres
+f_caracter <- function(x){ 
+           x = x %>% toupper(.) %>% trimws(.)
+return(x)
+}
+f_caracter(" Buenos Dias ")
+```
+
+# 2. Funciones de control dentro de una función.
+
+Debuguear un código es el proceso de proceso de identificar y corregir errores dentro de él. R tiene varias maneras de indicar cuando algo falla en la ejecución de un fragmento de código, las cuales son importantes conocer para disminuir el tiempo que requiere esta tarea. Cuando ejecutamos cualquier función en R podemos obtener los siguientes resultados:
+
+* ```message:``` es una notificación que generamos con la función ```message()```. Despues de aplicar esta función, la función sigue ejecutándose.
+* ```warning:``` es una notificación que generamos con la función ```warning()```, generalmente indica que hay algo que debemos tener en cuenta. Sin embargo, despues de aplicarse la función sigue ejecutándose.
+* ```error:```  es una notificación de que ocurrió un error importante, se genera con la funcion ```stop()```. Después de ejecutarse. la función no sigue ejecutándose.
+
+# 3. Depuración de errores en una función (Debugging)
+
+* ```traceback:``` esta función imprime sobre la consola la pila de funciones llamadas luego de que un error fatal ocurra.
+* ```debug:``` con esta función se inicia un depurador interactivo (conocido como browser en R) que permite ir paso a paso a través de la ejecución de una función hasta encontrar donde el error ocurre.
+* ```recover:``` con esta función podemos modificar la respuesta de R después de un error. Por ejemplo, con ```recover``` podemos indicarle a R que detenga la ejecución de la función en el punto exacto donde ocurre el error.
+
+
+# 4. Antes de hacer una función debemos:
+
+* Debemos hacerlo para un caso, antes de generalizar la función.
+* Tener claro el tipo de objeto que espero obtener de la función.
+* Cuando estamos probando una función es importante incorporar dentro del cuerpo de esta alguna función que nos permitan controlar el avance de la función.

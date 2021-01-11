@@ -1,0 +1,56 @@
+---
+pagetitle: "Respuesta del task"
+output: html_document
+---
+<!-- Estilo del HTML -->
+<style type="text/css">
+h1 {font-size: 32px;color: #00008B}
+h1.title {font-size: 32px;}
+h2 {font-size: 30px;color: #4169E1}
+h3 {font-size: 26px;color: #4169E1}
+h4 {font-size: 24px;}
+ p {font-size: 22px; color: black}
+li { font-size: 18px;color: black}
+.table th:not([align]) {text-align: left;}
+</style>
+
+<!-- Configuración de la consola de R -->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T , eval = T , warning = T)
+```
+
+# 1. Loops importando archivos
+```
+# Una pista de como empezar
+cat("\f")
+rm(list = ls())
+setwd("~/datos descargados/")
+
+# Lista con nombres de los archivos
+lista_archivos <- list()
+file_archivos <- list.files(".")
+
+# Este es el ejercicio
+i = 1
+for (j in file_archivos){
+     base <- readxl::read_excel(path = j)
+     names <- base[9,] %>% as.character() %>% tolower() %>% gsub(" ","",.)
+     colnames(base) <- names
+     lista_archivos[[i]] <- base
+     i = i + 1
+     rm(base)
+}
+```
+
+# 2. Loops anidados
+
+```
+# Dobles loops
+vocales <- c("a","e","i","o","u")
+for (i in vocales){
+     for (j in 1:5){
+          conbinado <- paste(i,j)
+          print(conbinado)
+     }
+}
+```

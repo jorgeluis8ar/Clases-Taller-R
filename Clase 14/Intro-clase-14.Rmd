@@ -1,0 +1,205 @@
+---
+pagetitle: "Introducción de la clase"
+output: html_document
+---
+<!-- Estilo del HTML -->
+<style type="text/css">
+h1 {font-size: 32px;color: #00008B}
+h1.title {font-size: 32px;}
+h2 {font-size: 30px;color: #4169E1}
+h3 {font-size: 26px;color: #4169E1}
+h4 {font-size: 24px;}
+ p {font-size: 22px; color: black}
+li { font-size: 18px;color: black}
+.table th:not([align]) {text-align: left;}
+</style>
+
+<!-- Configuración de la consola de R -->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T , eval = T , warning = T)
+```
+
+# 0. Antes de iniciar la clase ...
+
+### 0.1 Limpiar consola, entorno y fijar directorio de trabajo
+
+Primero limpiemos la consola y la memoria activa de R.
+```{r}
+cat("\f")
+rm(list=ls())
+```
+
+Cambiemos el directorio de trabajo por la ruta a la carpeta que contiene la ```Clase 14``` en nuestro equipo:
+```{r}
+setwd("~/Dropbox/teaching/Taller de R/GitHub/Clases/Clase 14") # Cambiar este directorio
+```
+
+Vamos a asegurarnos que estamos sobre el directorio de trabajo correcto. Si escribimos ```getwd()``` sobre la consola, debemos obtener la ruta dentro de nuestro pc que hemos fijado como directorio de trabajo. Si estamos en el directorio correcto, después del ultimo ```/``` debemos observar el nombre la carpeta así:
+
+* ```Clase 14``` (si lo descargas manualmente o creando una versión de control) 
+* ```clase_14-master``` (si lo descargas usando la función ```download.file()```)
+
+```{r}
+getwd()
+```
+
+De igual forma, puedes escribir sobre la consola ```list.files()``` para revisar los archivos que tienes en el directorio de trabajo. Deberías observar estos archivos:
+
+```{r}
+list.files()
+```
+
+Sino observas estos archivos sobre la consola, deberías fijar el directorio correctamente antes de continuar.
+
+### 0.2 Instalar las librerías de la clase
+
+Vamos a verificar que todos los paquetes que vamos a usar en la clase están instalados en nuestro equipo:
+
+```{r,eval=F}
+paquetes = c('tidyverse','data.table','plyr','XML','rvest','xml2')
+for ( paquete in paquetes){
+      if (length(grep(paquete,installed.packages()[,1])) == 0 ){ install.packages(paquete)}
+      else { print(paste0('La libreria ', '"', paquete ,'"', ' ya está instalada.'))}
+      rm(paquete)
+}
+```
+Después de correr estas líneas de código, deberíamos observar sobre la consola los siguientes mensajes:
+
+* ```"La libreria 'X' ya está instalada."``` (si ya teníamos instalada la librería) 
+* ```"La libreria 'X' ha sido instalada."``` (sino teníamos instalada la librería, pero ya se instaló) 
+
+### 0.3 Llamar las librerías de la clase
+
+Ahora vamos a llamar las librerías que vamos a usar en la clase: 
+
+```{r,eval=F}
+sapply(paquetes,require,character.only=T) 
+```
+
+## 0.4. Clase 14
+
+### 0.4.1. En la clase anterior vimos
+
+* 1. OLS
+* 2. Maximum Likelihood (Logit, Probit, Count Data)
+* 3. Datos panel y IV
+* 4. After estimations
+
+### 0.4.2. Hoy veremos 
+
+* 1. Introducción a web-scraping 
+* 2. HTML (Hyper Text Markup Language)
+* 3. Selector Gadget, xpath y css
+* 4. Aplicación (atributos del elemento)
+* 5. Aplicación (extraer tablas)  
+* 6. Aplicación (extraer datos de lluvias) 
+* 7. Aplicación (web drive)
+
+
+## 1. Introducción a web-scraping
+
+### 1.1. Que es web-scraping
+
+Es una técnica usada para automatizar los procesos de extracción de información de sitios web, como tablas, link a otras paginas o textos.
+
+### 1.2. Por que hacer web-scraping
+
+* Porque en ocasiones funciona mejor que copiar y pegar la información directamente de la web
+* Porque es rápido y replicable
+* Porque se puede generalizar el proceso en la mayoría de los casos 
+
+### 1.3. Antes de hacer web-scraping a una pagina que debo saber
+
+* Leer los términos y condiciones de la pagina 
+* En algunas ocasiones las paginas tienen API que pueden ayudarte a ahorrar trabajo
+
+## 2  HTML (Hyper Text Markup Language)
+
+### 2.1. Que es un HTML
+
+* HTML o HyperText Markup Language no es un lenguaje de programación, HTML es un lenguaje de marcado de hipertexto.
+
+* HTML es un lenguaje que es interpretado por el navegador web para mostrar las paginas web tal y como estamos acostumbrados a verlas.
+
+* HTML es el lenguaje en el que están programadas casi todas las paginas web que se encuentran en linea actualmente. 
+
+* HTML se escribe en su totalidad con elementos, estos elementos están constituidos por etiquetas, contenido y atributos (mas adelante veremos que son). 
+
+* HTML Sirve para indicar como va ordenado el contenido de una pagina web. Esto lo hace por medio de las marcas de hipertexto (etiquetas)
+
+* HTML esta estructurado como un árbol para el cual se puede rastrear cualquier la ruta de cualquier nodo o etiqueta.
+
+* Ir a una pagina web y ver el código fuente de la pagina
+
+### 2.2. Elementos de un HTML
+
+Como dijimos anteriormente, HTML es un lenguaje formado por elementos, cada elemento esta conformado por la etiqueta, los atributos y el contenido. Así se ve un elemento:
+
+```<p id="texto"> Hola mundo </p>```
+
+Etiqueta: ```<p>```
+Atributos: ```id="texto"```
+Contenido: ```Hola mundo```
+
+
+### 2.3. Etiquetas 
+
+Las etiquetas sirven para delimitar el inicio y el final de un elemento.
+
+* Inicio de la etiqueta:   ```< >```
+* Fin de la etiqueta:   ```<\ >```
+
+### 2.4. Algunos ejemplos de etiquetas
+
+* ```<p>```: Párrafos
+* ```<head>```: Encabezado de la pagina
+* ```<body>```: Cuerpo de la pagina
+* ```<h1>, <h2>,...,<hi>```: Encabezados, Secciones
+* ```<a>```: links
+* ```<li>```: Ítem en una lista
+* ```<table>```: Tablas
+* ```<td>```: Una celda de datos en una tabla
+* ```<div>```: División. Sirve para crear secciones o agrupar contenidos.
+* ```<script>```: Se utiliza para insertar o hacer referencia a un script
+
+### 2.5. Atributos
+
+Los atributos proveen información adicional de un elemento y siempre se expresan en la etiqueta de inicio y se les asigna un nombre y un valor:
+
+```<p id="texto">``` Hola mundo ```</p>```
+
+Aquí el nombre del atributo es "id" y el valor es "texto". Nota: Un elemento puede tener varios atributos
+
+### 2.6. Estructura de un HTML en una pagina web
+```
+(1) ---->  <!DOCTYPE html> 
+(2) ---->  <html>
+(3) ---->  <head>
+(4) ---->  <meta charset="utf-8">
+(5) ---->  <title> Aquí va el título de la pagina</title>
+           </head>
+(6) ---->  <body>
+           <h1>Aquí va nuestro titulo y esta en la etiqueta <u>h1</u>.</h1>
+           <h2>Este es un subtítulo y se encuentra en la etiqueta <u>h2</u>.</h2>
+           <p> Este es un párrafo muy pequeño que se encuentra dentro de la etiqueta <b>p</b> de <i>html</i></p>
+           </body>
+           </html>
+```
+* ```(1)``` Tipo de documento (indica que estamos trabajando con html5)
+* ```(2)``` Etiqueta de inicio
+* ```(3)``` Etiqueta de Cabeza
+* ```(4)``` Codificación
+* ```(5)``` Titulo de la pagina web
+* ```(6)``` Cuerpo (contenido de la pagina)
+
+# 3.  xpath, css y Selector Gadget
+
+Ya casi vamos a la acción, terminemos de definir algunos conceptos antes empezar a hacer web-scraping
+
+### 3.1. XML Path Language (xpath)
+
+El lenguaje Xpath es el sistema que se utiliza para navegar y consultar los elementos y atributos contenidos en la estructura de un documento XML.
+
+### 3.2. Selector Gadget
+
+Es una herramienta que nos permite obtener la ruta a algunos elementos dentro de un HTML

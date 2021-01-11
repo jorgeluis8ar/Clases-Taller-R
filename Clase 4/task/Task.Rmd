@@ -1,0 +1,87 @@
+---
+pagetitle: "Introduccion de la clase"
+output: html_document
+---
+<!-- Estilo del HTML -->
+<style type="text/css">
+h1 {
+  font-size: 32px;
+  color: red
+}
+h1.title {
+  font-size: 32px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 26px;
+}
+h4 {
+  font-size: 24px;
+}
+p {
+ font-size: 18px;
+ color: black
+}
+li {
+ font-size: 18px;
+ color: black
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+<!-- Estilo del HTML -->
+
+<!-- Configuracion de la consola de R -->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T , eval = T , warning = T)
+```
+
+# 1. Ejercicios GEIH
+
+## 1.1. Importar base de datos
+
+* De la carpeta ```data/originales/``` de este repositorio, importe los archivos ```Resto - Caracteristicas generales (Personas).csv```, ```Resto - Desocupados.csv```, ```Cabecera - Caracteristicas generales (Personas).csv``` y ```Cabecera - Desocupados.csv```. Y cree 4 objetos (```cg_resto```, ```deso_resto```, ```cg_cabecera``` y ```deso_cabecera```).
+
+## 1.2. Preparar las bases de datos
+
+* De los objetos ```cg_resto``` y ```cg_cabecera```, mantenga solo las variables "directorio","secuencia_p","orden","p6020","p6040","fex_c_2011".
+* De los objetos ```deso_resto``` y ```deso_cabecera```, mantenga solo las variables "directorio","secuencia_p","orden".
+* En el objeto ```cg_cabecera``` genere una variable ```urbano =  1``` 
+* En los objetos ```deso_resto``` y ```deso_cabecera``` genere una variable ```desocupado =  1``` 
+
+## 1.3 Unir las bases de datos
+
+* Usando la funcion ```merge``` una los objetos ```cg_cabecera``` y ```deso_cabecera``` en un objeto llamado ```cabecera```.
+* Usando la funcion ```merge``` una los objetos ```cg_resto``` y ```deso_resto``` en un objeto llamado ```resto```.
+* Use la funcion ```ifelse()``` para rellenar con ```0``` los ```NA``` de la variable ```desocupado``` en los objetos ```cabecera``` y ```resto```.
+* Usando la funcion ```rbind.fill``` una los objetos ```cabecera``` y ```resto``` en un objeto llamado ```nacional```.
+
+## 1.4 Tasa de desempleo
+
+* Del objeto nacional, use la variable "p6040" para dejar las observaciones que sean mayores a 12. 
+
+* Use la función ```group_by()``` y la función ```summarize()``` para calcular el número de desocupados y el número de personas mayores a 12 años. **Hint:** Use la variable ```desocupado``` que generó anteriormente y los factores de expación ("fex_c_2011"). 
+
+* Compare sus resultados con los del [visor](https://sitios.dane.gov.co/visor-geih/#/visor) de datos DANE.
+
+
+# 2. Ejercicios proyecciones población
+
+* De la carpeta ```task/data/``` de este repositorio, importe la base de datos ```censo 2018.rds```.
+
+* De la carpeta ```data/procesados/``` de este repositorio, importe la base de datos ```proyecciones DANE.rds```. Posteriormente filtre unicamente el año 2018.
+
+* Usando la funcion ```merge``` una estos dos objetos.
+
+* Calcule la diferencia entre la población del censo y la de poblacion de la base de datos de proyecciones.
+
+* Cree una variable en la que divide esta diferencia sobre la población del censo (para expresar la diferencia como porcentaje de la población real del municipio). 
+
+# 3. Limpieza base de datos
+
+* De la carpeta ```task/data/``` de este repositorio, importe y limpie la base de datos ```homicidios-2020.xlsx```.
+* Filtre los datos de la ciudad de Bogotá.
+* Calcule el número de homicidios por mes en Bogotá.

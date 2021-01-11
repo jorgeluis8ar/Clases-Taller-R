@@ -1,0 +1,45 @@
+---
+pagetitle: "Task clase 7"
+output: html_document
+---
+<!-- Estilo del HTML -->
+<style type="text/css">
+h1 {font-size: 32px;color: #00008B}
+h1.title {font-size: 32px;}
+h2 {font-size: 30px;color: #4169E1}
+h3 {font-size: 26px;color: #4169E1}
+h4 {font-size: 24px;}
+ p {font-size: 22px; color: black}
+li { font-size: 18px;color: black}
+.table th:not([align]) {text-align: left;}
+</style>
+
+<!-- Configuración de la consola de R -->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T , eval = T , warning = T)
+```
+
+
+# 1. Crear funciónes
+
+* Crear una función que elimina los acentos y otros caracteres especiales de una palabra. Pruebe la función con algunas palabras.
+
+* Crear una función que me imprima el numero de NA se crean al convertir una variable de formato character a numérica.
+
+# 2. Función que importa de archivos
+
+* Van a usar el paquete 'tidyverse' y 'readxl' (puede que se me escapa otro).
+
+* Descargue los archivos de el siguiente link: [clic aquí](https://www.dropbox.com/sh/o6edda8hmfooate/AACYr4N1wkwL9IMVTgUHAJpya?dl=0). Este link contiene las bases de datos con los registros oficiales de los delitos
+reportados en Colombia entre 2010-2019 y fueron tomados de: [link a GICRI](https://www.policia.gov.co/grupo-información-criminalidad/estadistica-delictiva). Si ya los descargó para el ```task 7```, no es necesario que los descargue otra vez.
+
+* Usando las funciones list.files() y algunas de las 'string functions' vistas en clases anteriores intente crear una funcion que importe y limpie las bases de datos del archivo.   
+
+* Use la función ```rbindlist()``` del paquete ```data.table``` para convertir la lista en un solo dataframe.
+
+
+
+
+
+
+
